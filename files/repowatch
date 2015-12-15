@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ ! -f $1/repodata ]; then
+        createrepo $1
+fi
+
+inotifywait -m -r -e create -e delete -e modify -e move $1/ | while read line
+do
+        if [ $(echo $line | tail -c 4) == 'rpm' ]; then
+            if [ ! -f $1/createrepo.lock ]; then
+                touch $1/createrepo.lock
+                createrepo --update $1
+                rm $1/createrepo.lock
+            fi
+        fi
+done
