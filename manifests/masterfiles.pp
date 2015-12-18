@@ -5,15 +5,15 @@ class yumsync::masterfiles {
   }
 
   package {'inotify-tools':
-    ensure => present,
+    ensure  => present,
     require => Package['epel-release'],
   }
 
   file {'/usr/bin/repowatch':
     ensure => present,
-    owner => 'root',
-    group => 'root',
-    mode => '0700',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0700',
     source => 'puppet:///modules/yumsync/repowatch',
   }
 

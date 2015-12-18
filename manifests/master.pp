@@ -32,7 +32,7 @@ define yumsync::master (
   exec {"Create ${directory}":
     command  => "/bin/mkdir -p ${directory}",
     creates  => $directory,
-    notify => Exec["Initial ${directory} repodata"]
+    notify   => Exec["Initial ${directory} repodata"]
   }
 
   exec {"Initial ${directory} repodata":
