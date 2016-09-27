@@ -28,6 +28,7 @@ define yumsync::master (
 ) {
 
   include 'yumsync::masterfiles'
+  include 'yumsync::packages'
 
   exec {"Create ${directory}":
     command  => "/bin/mkdir -p ${directory}",
@@ -38,6 +39,7 @@ define yumsync::master (
   exec {"Initial ${directory} repodata":
     command     => "/usr/bin/createrepo ${directory}",
     refreshonly => true,
+    require     => Package['createrepo']
   }
 
   exec {"Watch ${directory}":
